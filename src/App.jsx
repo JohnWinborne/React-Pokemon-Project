@@ -8,8 +8,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/search/:query" element={<SearchResults />} />
-      <Route path="/pokemon/:name" element={<PokemonDetails />} />
+      <Route path="/pokemon" element={<SearchResults />} />
+      <Route path="/pokemon/search/:query" element={<SearchResults />} />
+      <Route path="/pokemon/:id" element={<PokemonDetails />} />
     </Routes>
   );
 }

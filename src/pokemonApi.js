@@ -17,6 +17,19 @@ export async function fetchPokemonList() {
           num
           sprite
           types { name }
+          abilities {
+            first { name }
+            second { name }
+            hidden { name }
+          }
+          baseStats {
+            hp
+            attack
+            defense
+            specialattack
+            specialdefense
+            speed
+          }
         }
       }
     `;
@@ -55,17 +68,21 @@ export async function fetchPokemonList() {
   return allPokemon;
 }
 
-export async function fetchPokemonDetails(name) {
+export async function fetchPokemonDetailsByDexNumber(id) {
   const query = `
-    query Pokemon($pokemon: Pokemon!) {
-      getPokemon(pokemon: $pokemon) {
+    query PokemonByDex($num: Int!) {
+      getPokemonByDexNumber(number: $num) {
         species
         num
         sprite
         types { name }
         height
         weight
-        abilities { first { name } second { name } hidden { name } }
+        abilities {
+          first { name }
+          second { name }
+          hidden { name }
+        }
         baseStats {
           hp
           attack
@@ -80,12 +97,12 @@ export async function fetchPokemonDetails(name) {
 
   const res = await axios.post(ENDPOINT, {
     query,
-    variables: { pokemon: name },
+    variables: { num: Number(id) },
   });
 
   if (res.data.errors) {
     throw new Error(res.data.errors.map((e) => e.message).join("\n"));
   }
 
-  return res.data.data.getPokemon;
+  return res.data.data.getPokemonByDexNumber;
 }

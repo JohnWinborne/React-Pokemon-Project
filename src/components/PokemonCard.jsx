@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function PokemonCard({ p }) {
-  const types = (p.types || []).map((t) => t.name).join(", ") || "Unknown";
-const bst =
-  p.baseStatsTotal ??
-  (p.baseStats
+  const navigate = useNavigate();
+
+  const bst = p.baseStats
     ? Object.values(p.baseStats).reduce((sum, v) => sum + Number(v || 0), 0)
-    : "Unknown");
-  const ability = p.abilities?.first?.name ?? "Unknown";
+    : "Unknown";
+
+  const primaryAbility =
+    p.abilities?.first?.name ||
+    p.abilities?.second?.name ||
+    p.abilities?.hidden?.name ||
+    "Unknown";
+
+  function handleClick() {
+    navigate(`/pokemon/${p.num}`);
+  }
 
   return (
-    <div className="pokemon__info">
-      <h3 className="pokemon__name">{p.species}</h3>
+    <div className="pokemon__info" onClick={handleClick}>
+      <h3 className="pokemon__name">
+        {p.species.charAt(0).toUpperCase() + p.species.slice(1)}
+      </h3>
       <p className="pokemon__number">#{p.num}</p>
 
       <img
@@ -25,13 +35,30 @@ const bst =
       />
 
       <ul className="pokemon__meta">
-        <li><span className="meta__label">Type:</span> {types}</li>
-        <li><span className="meta__label">Base Stat Total:</span> {bst}</li>
-        <li><span className="meta__label">Primary Ability:</span> {ability}</li>
+        <li className="pokemon__type--container">
+          <span className="meta__label">Type:</span>
+          <div className="pokemon__card-types">
+            {(p.types || []).map((t) => (
+              <span
+                key={t.name}
+                className={`type-badge type-${t.name.toLowerCase()}`}
+              >
+                {t.name}
+              </span>
+            ))}
+          </div>
+        </li>
+
+        <li>
+          <span className="meta__label">Base Stat Total:</span> {bst}
+        </li>
+
+        <li>
+          <span className="meta__label">Primary Ability:</span> {primaryAbility}
+        </li>
       </ul>
     </div>
   );
 }
 
-
-export default PokemonCard
+export default PokemonCard;
