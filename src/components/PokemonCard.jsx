@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 
 function PokemonCard({ p }) {
   const types = (p.types || []).map((t) => t.name).join(", ") || "Unknown";
-  const bst = p.baseStatsTotal ?? "Unknown";
+const bst =
+  p.baseStatsTotal ??
+  (p.baseStats
+    ? Object.values(p.baseStats).reduce((sum, v) => sum + Number(v || 0), 0)
+    : "Unknown");
   const ability = p.abilities?.first?.name ?? "Unknown";
 
   return (

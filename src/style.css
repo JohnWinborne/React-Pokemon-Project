@@ -313,7 +313,9 @@ option[value="Fairy"] {
   gap: 6px;
   flex: 1 1 260px; /* grow, shrink, base width */
   max-width: 320px; /* prevents giant cards on wide screens */
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
 
 .pokemon__info:hover {
@@ -328,23 +330,35 @@ option[value="Fairy"] {
   align-self: center;
 }
 
-.pokemon__loading--spinner {
-  /* position absolute with top and left 50% centers */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 100px;
-  color: black;
-  display: none !important;
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* show spinner only when loading */
-.pokemon__loading .pokemon__loading--spinner {
-  display: block !important;
+/* LOADING  */
+
+.loading {
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
-.fa-spinner {
-  animation: rotate 600ms infinite linear;
+.loading__spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #d9d9d9;
+  border-top: 5px solid black;
+  border-radius: 50%;
+  animation: rotate 700ms linear infinite;
 }
 
 @keyframes rotate {
@@ -356,6 +370,27 @@ option[value="Fairy"] {
     transform: rotate(360deg);
   }
 }
+
+.load-more__wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.load-more__btn {
+  padding: 12px 24px;
+  border-radius: 999px;
+  background-color: rgb(92, 0, 0);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+}
+
+.load-more__btn:hover {
+  opacity: 0.9;
+}
+
 /* RESPONSIVENESS */
 
 @media (max-width: 768px) {
@@ -363,6 +398,26 @@ option[value="Fairy"] {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+  
+  .results__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .filters {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .filter__group {
+    width: 100%;
+    min-width: unset;
+  }
+
+  #type__filter {
+    width: 100%;
   }
 }
 

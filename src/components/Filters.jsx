@@ -1,6 +1,23 @@
-import React, { useState } from "react";
+function Filters({
+  typeFilter,
+  setTypeFilter,
+  genMin,
+  setGenMin,
+  genMax,
+  setGenMax,
+}) {
+  function onMinChange(v) {
+    const next = Number(v);
+    setGenMin(next);
+    if (next > genMax) setGenMax(next); // clamp
+  }
 
-function Filters() {
+  function onMaxChange(v) {
+    const next = Number(v);
+    setGenMax(next);
+    if (next < genMin) setGenMin(next); // clamp
+  }
+
   return (
     <section className="results__header">
       <h2>Search results:</h2>
@@ -8,7 +25,12 @@ function Filters() {
       <div className="filters">
         <div className="filter__group">
           <label htmlFor="type__filter">Type:</label>
-          <select id="type__filter" name="type" defaultValue="">
+          <select
+            id="type__filter"
+            name="type"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
             <option value="">All types</option>
             <option value="Normal">Normal</option>
             <option value="Fire">Fire</option>
@@ -34,7 +56,9 @@ function Filters() {
         <div className="filter__group">
           <div className="filter__label--row">
             <span>Generation range:</span>
-            <span id="generation__range--label">1 to 9</span>
+            <span id="generation__range--label">
+              {genMin} to {genMax}
+            </span>
           </div>
 
           <div className="generation__sliders">
@@ -44,17 +68,20 @@ function Filters() {
                 type="range"
                 min="1"
                 max="9"
-                defaultValue="1"
+                value={genMin}
+                onChange={(e) => onMinChange(e.target.value)}
               />
               <p>min</p>
             </div>
+
             <div>
               <input
                 className="gen__max"
                 type="range"
                 min="1"
                 max="9"
-                defaultValue="9"
+                value={genMax}
+                onChange={(e) => onMaxChange(e.target.value)}
               />
               <p>max</p>
             </div>
