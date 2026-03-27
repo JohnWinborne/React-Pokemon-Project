@@ -14,7 +14,6 @@ function Home() {
   }
   return (
     <>
-      <Header />
       {transition && <div className="transition-overlay"></div>}
       <main className="landing">
         <div className="landing__content">

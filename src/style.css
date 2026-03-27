@@ -117,7 +117,6 @@ a {
 }
 
 .header-inner {
-  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -129,6 +128,14 @@ a {
   font-weight: 900;
   color: black;
   font-size: 22px;
+}
+
+.main__nav {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  padding: 12px;
+  background-color: rgb(92, 0, 0);
 }
 
 .main__nav a {
@@ -152,6 +159,27 @@ a {
 
 .main__nav a:hover::after {
   width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.nav-toggle span {
+  /* display: block; */
+  width: 24px;
+  height: 3px;
+  background-color: black;
+  border-radius: 999px;
 }
 
 /* POKEMON SEARCH */
@@ -346,10 +374,17 @@ option[value="Fairy"] {
 }
 
 /* FLEX CONTAINER */
+
 .pokemon__results {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* always 3 per row */
-  gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.pokemon__card {
+  flex: 1 1 calc(33.33% - 24px);
+  max-width: 320px;
 }
 
 .pokemon__meta {
@@ -658,6 +693,31 @@ option[value="Fairy"] {
   opacity: 0.9;
 }
 
+/* FOOTER  */
+
+.footer {
+  background-color: rgb(92, 0, 0);
+  color: white;
+  padding: 24px 16px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.footer__content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer a {
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
 /* RESPONSIVENESS */
 
 @media (max-width: 768px) {
@@ -690,6 +750,10 @@ option[value="Fairy"] {
   .pokemon__results {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .pokemon__card {
+    flex: 1 1 calc(50% - 24px);
+  }
 }
 
 @media (max-width: 640px) {
@@ -699,6 +763,34 @@ option[value="Fairy"] {
 
   .header-inner {
     height: 64px;
+    position: relative;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .main__nav {
+    position: absolute;
+    top: 64px;
+    left: 0px;
+    right: 0px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px;
+    background-color: rgb(92, 0, 0);
+  }
+
+  .main__nav--open {
+    display: flex;
+  }
+
+  .main__nav a {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 14px;
   }
 
   .pokemon {
@@ -715,5 +807,9 @@ option[value="Fairy"] {
 
   .pokemon__results {
     grid-template-columns: 1fr;
+  }
+
+  .pokemon__card {
+    flex: 1 1 100%;
   }
 }

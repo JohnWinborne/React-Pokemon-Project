@@ -95,8 +95,6 @@ function PokemonDetails() {
 
   return (
     <>
-      <Header />
-
       <main className="container details__page">
         <section className="pokemon-details">
           <div className="pokemon-details__left">

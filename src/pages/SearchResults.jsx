@@ -118,8 +118,6 @@ export default function SearchResults() {
 
   return (
     <>
-      <Header />
-
       <section className="pokemon">
         <div className="container pokemon__content">
           <h1>Browse Pokémon</h1>
